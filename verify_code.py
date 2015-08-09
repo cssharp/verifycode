@@ -14,7 +14,12 @@ def getVerify_Code(fileName):
         os.system('tesseract -l eng code.tif rr')
         strx=open('rr.txt','r').read().replace(' ','').replace('_','').strip()
         print strx
-        if re.match(r,strx):
+        m = re.search('\d+[\+\-\*\/]\d+',strx)
+        if m:
+            strx=m.group(0)
+            strx=eval(strx)
+            return strx
+        elif re.match(r,strx):
             return strx
     return ''
 
